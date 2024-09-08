@@ -1,0 +1,22 @@
+version: '3.7' #Version docker
+
+services:      #Services to add
+
+  db:          #Database Service
+    image: postgres:latest  #Define service this case postgres:[version that you need, if dont type anything default latest]
+    restart: always
+    container_name: talosDbPostgres   #Container name you can type according your preferences
+    hostname: myhost
+    environment:
+      POSTGRES_DB: talos              # your database name
+      POSTGRES_USER: root             #your database user
+      POSTGRES_PASSWORD: root         #your database password
+    volumes:
+      - ~/Documents/docker-vol/postgres-volume1/data1:/var/lib/postgresql/data    #to create a folder with configuration container
+      - ./talos20220621.sql:/docker-entrypoint-initdb.d/talos20220621.sql         #if you need agree a sql file, you have to configure origin path : path inside container, "Always /docker-entrypoint-initdb.d/[sqlfile]"
+    ports:
+      - "9091:5432"                   #[port where windows expose the container, this one could be configurate in the connection database IDE] : [port when the container listen de database]
+
+#open terminal in this path and command run docker-compose up
+#When all be Done, inside terminal container (CLI) copy and paste this line: pg_restore -d talos /docker-entrypoint-initdb.d/talos20220621.sql
+    

@@ -1,0 +1,21 @@
+version: "3"
+services:
+  SonarQube:
+    image: sonarqube:8.2-community
+    ports:
+      - "9000:9000"
+    volumes:
+      - SonarQube_data:/opt/SonarQube/data
+      - SonarQube_extensions:/opt/SonarQube/extensions
+      - SonarQube_logs:/opt/SonarQube/logs
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    
+volumes:
+  SonarQube_data:
+  SonarQube_extensions:
+  SonarQube_logs:
+  postgresql:
+  postgresql_data:
